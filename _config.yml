@@ -19,27 +19,27 @@ title: HRISHI # the main title
 tagline: Cyber security blogs # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  hrishikesh, responsive and feature-rich Jekyll theme for technical writing.
+  Welcome to my world of ethical hacking and cybersecurity! Here, I share my journey through the fascinating realms of penetration testing, bug bounty hunting, and vulnerability research. From payloads to exploits, you'll find insights, tips, and stories about uncovering weaknesses and strengthening defenses. Whether you're a seasoned hacker or just starting, join me in exploring the art of breaking things for a better and safer digital future.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
 url: "https://hrishikeshY22.github.io"
 
 github:
-  username: github_username # change to your GitHub username
+  username: hrishikeshY22 # change to your GitHub username
 
 twitter:
-  username: twitter_username # change to your Twitter username
+  username: @HRISHIK16554949 # change to your Twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
-  email: example@domain.com # change to your email address
+  name: HRISHIKESH YALAVARTHI
+  email: hrishi22.yalavarthy@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username # change to your Twitter homepage
-    - https://github.com/username # change to your GitHub homepage
+    - https://twitter.com/@HRISHIK16554949 # change to your Twitter homepage
+    - https://github.com/hrishikeshY22 # change to your GitHub homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
