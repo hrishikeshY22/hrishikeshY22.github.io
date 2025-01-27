@@ -7,3 +7,19 @@ description: "Step-by-step guide to solving the Kioptrix Level 1 machine, coveri
 toc: true
 comments: true
 ---
+
+# **Kioptrix: Level 1 Walkthrough**
+
+---
+
+## **Introduction**
+
+The **Kioptrix Level 1** machine is a beginner-friendly challenge designed to teach core penetration testing skills, including:
+
+- **Network and service enumeration**
+- **Exploitation of common vulnerabilities**
+- **Privilege escalation techniques**
+
+This walkthrough assumes you have a basic understanding of penetration testing tools and methodologies. Let’s dive in!
+
+---
