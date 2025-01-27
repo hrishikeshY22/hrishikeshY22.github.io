@@ -48,27 +48,27 @@ To resolve this issue:
 1. Locate the VMware configuration file for the VM (e.g., `Kioptrix Level 1.vmx`).
 2. Open the file in a text editor and search for the line:
 3. Edit its value to `NAT` as shown below.
+   <div style="background-color: #2e2e2e; color: white; border: 1px solid #444; padding: 10px; font-family: 'Courier New', Courier, monospace; white-space: pre-line; word-wrap: break-word; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); line-height: 1.4;">
+    memsize = "64"
+    ide1:0.present = "FALSE"
+    ide1:0.fileName = "F:"
+    ide1:0.deviceType = "atapi-cdrom"
+    ide1:0.allowGuestConnectionControl = "FALSE"
+    ide1:1.present = "FALSE"
+    ide1:1.fileName = "Kioptix Level 1.vmdk"
+    ide1:1.writeThrough = "TRUE"
+    ethernet0.present = "TRUE"
+    ethernet0.allowGuestConnectionControl = "FALSE"
+    ethernet0.features = "1"
+    ethernet0.wakeOnPcktRcv = "FALSE"
+    <span style="background-color: #f1c40f; color: black;">ethernet0.networkName = "NAT"</span>
+    ethernet0.addressType = "generated"
+    guestOS = "other24xlinux"
+    uuid.location = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"
+    uuid.bios = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"
+    vc.uuid = "52 77 3c 2e 12 81 3a 68-25 23 b3 92 4e 8e 01 ff"
+</div>
 
-   <div style="background-color: #f4f4f4; border: 1px solid #ccc; padding: 10px; font-family: 'Courier New', Courier, monospace;">
-   memsize = "64"<br>
-   ide1:0.present = "FALSE"<br>
-   ide1:0.fileName = "F:"<br>
-   ide1:0.deviceType = "atapi-cdrom"<br>
-   ide1:0.allowGuestConnectionControl = "FALSE"<br>
-   ide1:1.present = "FALSE"<br>
-   ide1:1.fileName = "Kioptix Level 1.vmdk"<br>
-   ide1:1.writeThrough = "TRUE"<br>
-   ethernet0.present = "TRUE"<br>
-   ethernet0.allowGuestConnectionControl = "FALSE"<br>
-   ethernet0.features = "1"<br>
-   ethernet0.wakeOnPcktRcv = "FALSE"<br>
-   <span style="background-color: yellow; color: black;">ethernet0.networkName = "NAT"</span><br>
-   ethernet0.addressType = "generated"<br>
-   guestOS = "other24xlinux"<br>
-   uuid.location = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"<br>
-   uuid.bios = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"<br>
-   vc.uuid = "52 77 3c 2e 12 81 3a 68-25 23 b3 92 4e 8e 01 ff"<br>
-   </div>
 
 4. Now save the configuration file and restart the VM.
 
