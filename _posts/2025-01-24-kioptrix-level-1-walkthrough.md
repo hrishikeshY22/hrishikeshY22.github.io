@@ -73,3 +73,31 @@ To resolve this issue:
 4. Now save the configuration file and restart the VM.
 
 ---
+## **Enumeration**
+
+### **Identifying the Target Machine**
+
+The first step in enumeration is to identify the IP address of the **Kioptrix Level 1** machine in the local network. We can achieve this using the tool **netdiscover**, which is pre-installed in most penetration testing distributions like **Kali Linux**.
+
+#### **Steps to Identify the Target**
+
+1. Open a terminal on your attacker machine.
+2. Run the following command to discover all active devices in the network:
+   ```bash
+   sudo netdiscover -r <NETWORK_RANGE>
+   ```
+
+    ```bash
+    Currently scanning: Finished!   |   Screen View: Unique Hosts                                                                                                   
+ 4 Captured ARP Req/Rep packets, from 4 hosts.   Total size: 240                                                                                            
+ _____________________________________________________________________________
+    IP               At MAC Address     Count     Len  MAC Vendor / Hostname      
+ -----------------------------------------------------------------------------
+ 192.168.153.1   00:50:56:c0:00:08      1      60  VMware, Inc.                                                                                             
+ 192.168.153.2   00:50:56:e5:33:16      1      60  VMware, Inc.                                                                                             
+ 192.168.153.129 00:0c:29:11:3d:da      1      60  VMware, Inc.                                                                                             
+ 192.168.153.254 00:50:56:ee:1f:12      1      60  VMware, Inc.
+ ```
+3. The IP of the target host is 192.168.153.129
+
+---
