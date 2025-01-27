@@ -67,9 +67,8 @@ To resolve this issue:
     uuid.location = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"
     uuid.bios = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"
     vc.uuid = "52 77 3c 2e 12 81 3a 68-25 23 b3 92 4e 8e 01 ff"
-</div>
-
-
+    </div>
+    
 4. Now save the configuration file and restart the VM.
 
 ---
