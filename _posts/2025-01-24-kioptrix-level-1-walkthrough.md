@@ -440,3 +440,10 @@ Shellcodes: No Results
     uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel)
     ``` 
 
+
+---
+<div style="background-color: #f9f9f9; padding: 1rem; border-radius: 8px; text-align: center; font-size: 1.2rem;">
+<strong>Thank you for reading, and until next time, keep learning and growing!</strong>
+</div>
+
+---
