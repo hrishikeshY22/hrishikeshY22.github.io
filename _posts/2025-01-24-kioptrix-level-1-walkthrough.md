@@ -23,3 +23,53 @@ The **Kioptrix Level 1** machine is a beginner-friendly challenge designed to te
 This walkthrough assumes you have a basic understanding of penetration testing tools and methodologies. Let’s dive in!
 
 ---
+
+## **Setup and Configuration**
+
+Before starting the exploitation process, ensure the virtual machine is set up correctly in **VMware Workstation** or **VMware Player**.
+
+### **Steps to Set Up Kioptrix Level 1**
+
+1. **Download** the VM image from the official source.
+2. Import the VM into VMware Workstation or Player.
+3. Allocate a minimum of **512MB RAM** for smooth operation.
+4. Configure the **network adapter** to **NAT Mode** for proper connectivity.
+
+---
+
+### **Common VMware Network Issue**
+
+One common issue faced during the setup is the **network adapter reverting to Bridged Mode**, even when explicitly set to NAT Mode. This can disrupt communication between the host and the virtual machine.
+
+#### **Solution**
+
+To resolve this issue:
+
+1. Locate the VMware configuration file for the VM (e.g., `Kioptrix Level 1.vmx`).
+2. Open the file in a text editor and search for the line:
+3. Edit its value to `NAT` as shown below.
+
+   <div style="background-color: #f4f4f4; border: 1px solid #ccc; padding: 10px; font-family: 'Courier New', Courier, monospace;">
+   memsize = "64"<br>
+   ide1:0.present = "FALSE"<br>
+   ide1:0.fileName = "F:"<br>
+   ide1:0.deviceType = "atapi-cdrom"<br>
+   ide1:0.allowGuestConnectionControl = "FALSE"<br>
+   ide1:1.present = "FALSE"<br>
+   ide1:1.fileName = "Kioptix Level 1.vmdk"<br>
+   ide1:1.writeThrough = "TRUE"<br>
+   ethernet0.present = "TRUE"<br>
+   ethernet0.allowGuestConnectionControl = "FALSE"<br>
+   ethernet0.features = "1"<br>
+   ethernet0.wakeOnPcktRcv = "FALSE"<br>
+   <span style="background-color: yellow; color: black;">ethernet0.networkName = "NAT"</span><br>
+   ethernet0.addressType = "generated"<br>
+   guestOS = "other24xlinux"<br>
+   uuid.location = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"<br>
+   uuid.bios = "56 4d 0e e7 c2 81 21 e5-2d e6 61 b1 79 11 3d da"<br>
+   vc.uuid = "52 77 3c 2e 12 81 3a 68-25 23 b3 92 4e 8e 01 ff"<br>
+   </div>
+
+4. Now save the configuration file and restart the VM.
+
+---
