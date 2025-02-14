@@ -8,10 +8,6 @@ toc: true
 comments: true
 ---
 
-# Kioptrix Level 1.1 Walkthrough
-
----
-
 ## **Introduction**
 Kioptrix Level 1.1 is a boot2root challenge designed to test penetration testing skills. The goal is to gain root access to the machine using various attack vectors.
 

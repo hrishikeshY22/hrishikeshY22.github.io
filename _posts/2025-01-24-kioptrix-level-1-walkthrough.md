@@ -8,10 +8,6 @@ toc: true
 comments: true
 ---
 
-# **Kioptrix: Level 1 Walkthrough**
-
----
-
 ## **Introduction**
 
 The **Kioptrix Level 1** machine is a beginner-friendly challenge designed to teach core penetration testing skills, including:
